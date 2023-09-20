@@ -91,7 +91,7 @@ while True:
 
         screen.blit(manzana_surf, manzana_rect)
     else:
-        cuerpo_culebra = deque([mapa[(5, 5)], mapa[(4, 5)], mapa[(3, 5)]])
+        cuerpo_culebra = deque([mapa[(7, 9)], mapa[(7, 8)], mapa[(7, 7)]])
         culebra_direccion = ""
 
         # manzana
