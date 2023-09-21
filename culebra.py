@@ -117,3 +117,6 @@ while True:
         estado_juego = False
 
     pygame.display.flip()
+
+
+#te amo alejo
