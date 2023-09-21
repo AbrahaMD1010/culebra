@@ -14,7 +14,8 @@ mapa = {(posx, posy): [i, j] for posx, i in enumerate(range(0, WINDOWS, TILE_SIZ
 pygame.init()
 
 # culebra
-cuerpo_culebra = deque([mapa[(5, 5)], mapa[(4, 5)], mapa[(3, 5)]])
+cuerpo_culebra = deque([mapa[(7, 7)], mapa[(7, 8)], mapa[(7, 9)]])
+
 culebra_direccion = "arriba"
 
 # manzana
@@ -26,8 +27,8 @@ manzana_rect.topleft = mapa[manzana_posicion[0], manzana_posicion[1]]
 
 # #####################
 
-nuevo_y: int = cuerpo_culebra[1][1]
-nuevo_x: int = cuerpo_culebra[1][0]
+nuevo_y: int = cuerpo_culebra[0][1]
+nuevo_x: int = cuerpo_culebra[0][0]
 
 estado_juego = False
 
@@ -65,35 +66,36 @@ while True:
             nuevo_x += TILE_SIZE
 
         cuerpo_culebra.appendleft([nuevo_x, nuevo_y])
-        # print(cuerpo_culebra, manzana_rect.topleft)
         if tuple(cuerpo_culebra[0]) == manzana_rect.topleft:
             # puntos +1
             manzana_posicion = [randrange(*RANGE), randrange(*RANGE)]
             manzana_rect.topleft = mapa[manzana_posicion[0], manzana_posicion[1]]
-            pass
         else:
             cuerpo_culebra.pop()
 
         # verificar choques
         if (cuerpo_culebra[0][0] < 0 or cuerpo_culebra[0][1] < 0
                 or cuerpo_culebra[0][0] > WINDOWS or cuerpo_culebra[0][1] > WINDOWS):
-
             estado_juego = False
 
         if cuerpo_culebra[0] in list(cuerpo_culebra)[1:]:
             estado_juego = False
-        # ##
 
+        # ##
+        cabeza = True
         for parte in cuerpo_culebra:
-            # print(parte[0], parte[1])
-            rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
-            pygame.draw.rect(screen, "green", rect)
+            if not cabeza:
+                rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
+                pygame.draw.rect(screen, "green", rect)
+            else:
+                rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
+                pygame.draw.rect(screen, "white", rect)
+                cabeza = False
 
         screen.blit(manzana_surf, manzana_rect)
     else:
-        cuerpo_culebra = deque([mapa[(7, 9)], mapa[(7, 8)], mapa[(7, 7)]])
+        cuerpo_culebra = deque([mapa[(7, 7)], mapa[(7, 8)], mapa[(7, 9)]])
         culebra_direccion = "arriba"
-
         # manzana
 
         manzana_posicion = [randrange(*RANGE), randrange(*RANGE)]
@@ -101,22 +103,26 @@ while True:
 
         # #####################
 
-        nuevo_y: int = cuerpo_culebra[1][1]
-        nuevo_x: int = cuerpo_culebra[1][0]
+        nuevo_y: int = cuerpo_culebra[0][1]
+        nuevo_x: int = cuerpo_culebra[0][0]
 
         screen.fill("black")
+        cabeza = True
         for parte in cuerpo_culebra:
-            # print(parte[0], parte[1])
-            rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
-            pygame.draw.rect(screen, "green", rect)
+            if not cabeza:
+                rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
+                pygame.draw.rect(screen, "green", rect)
+
+            else:
+                rect = pygame.Rect(parte[0], parte[1], TILE_SIZE, TILE_SIZE)
+                pygame.draw.rect(screen, "white", rect)
+                cabeza = False
 
         for i in range(0, WINDOWS, TILE_SIZE):
             for j in range(0, WINDOWS, TILE_SIZE):
                 pygame.draw.rect(screen, 'white', (i, j, TILE_SIZE, TILE_SIZE), 1)
 
-        estado_juego = False
 
     pygame.display.flip()
 
-
-#te amo alejo
+# te amo alejo
