@@ -1,3 +1,4 @@
+import time
 from collections import deque
 from random import randrange, randint
 
@@ -58,6 +59,17 @@ while True:
 
     if estado_juego:
         screen.fill("black")
+
+        if len(cuerpo_culebra) == ((WINDOWS//CUADRADO_SIZE)**2)-1:
+            estado_juego = False
+            victoria_fuente = pygame.font.SysFont("verdana", 30)
+            texto_victoria_surf = victoria_fuente.render("GANASTE!!", True, "red")
+            texto_victoria_rect = texto_victoria_surf.get_rect()
+            texto_victoria_rect.center = (WINDOWS//2, WINDOWS//2)
+            screen.blit(texto_victoria_surf, texto_victoria_rect)
+            time.sleep(3)
+            continue
+
         for i in range(0, WINDOWS, CUADRADO_SIZE):
             for j in range(0, WINDOWS, CUADRADO_SIZE):
                 pygame.draw.rect(screen, 'white', (i, j, CUADRADO_SIZE, CUADRADO_SIZE), 1)
