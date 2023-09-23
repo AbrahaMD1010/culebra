@@ -37,7 +37,7 @@ estado_juego = False
 bloqueado_input = False
 
 clock = pygame.time.Clock()
-puntos = 0
+# puntos = 0
 while True:
     clock.tick(10)
     for event in pygame.event.get():
@@ -129,6 +129,7 @@ while True:
         screen.blit(texto_surf, texto_rect)
 
     else:
+        puntos = 0
         texto_fuente = pygame.font.SysFont("verdana", 30)
         texto_surf = texto_fuente.render("Puntos: 0", True, "white")
         texto_rect = texto_surf.get_rect()
@@ -138,11 +139,11 @@ while True:
         instrucciones_rect = instrucciones.get_rect()
         instrucciones_rect.center = (WINDOWS//2, WINDOWS//2)
 
-        cuerpo_culebra = deque([mapa[(6, 6)], mapa[(6, 7)], mapa[(6, 8)]])
+        cuerpo_culebra = deque([mapa[(7, 7)], mapa[(7, 8)], mapa[(7, 9)]])
         culebra_direccion = "arriba"
         # manzana
 
-        manzana_posicion = [9, 3]
+        manzana_posicion = [10, 3]
         manzana_rect.topleft = mapa[manzana_posicion[0], manzana_posicion[1]]
 
         # #####################
@@ -172,4 +173,3 @@ while True:
 
     pygame.display.flip()
 
-# te amo alejo
